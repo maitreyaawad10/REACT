@@ -19,15 +19,7 @@ function Sidebar() {
     const user = useSelector(selectUser);
     const [channels, setChannels] = useState([]);
 
-    // const getChannels = () => {
-    //     axios.get("/get/channelList")
-    //         .then((res) => {
-    //             setChannels(res.data);
-    //         });
-    // }
-
     useEffect(() => {
-        // getChannels();
         db.collection("channels").onSnapshot(snapshot => (
             setChannels(snapshot.docs.map(doc => ({
                 id: doc.id,
@@ -37,6 +29,8 @@ function Sidebar() {
     }, [])
 
     const handleAddChannel = () => {
+        // e.preventDefault();
+
         const channelName = prompt("Enter a new channel name");
 
         if (channelName) {
@@ -65,11 +59,11 @@ function Sidebar() {
                 </div>
 
                 <div className="sidebar__channelsList">
-                    {channels.map(channel => (
+                    {channels.map(({ id, channel }) => (
                         <SidebarChannel
-                            key={channel.id}
-                            id={channel.id}
-                            channelName={channel.name}
+                            key={id}
+                            id={id}
+                            channelName={channel.channelName}
                         />
                     ))}
                 </div>

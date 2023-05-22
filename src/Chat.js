@@ -21,28 +21,28 @@ function Chat() {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        if(channelId) {
+        if (channelId) {
             db.collection("channels")
-            .doc(channelId)
-            .collection("messages")
-            .orderBy("timestamp", "desc")
-            .onSnapshot((snapshot) => 
-                setMessages(snapshot.docs.map((doc) => doc.data()))
-            );
+                .doc(channelId)
+                .collection("messages")
+                .orderBy("timestamp", "desc")
+                .onSnapshot((snapshot) =>
+                    setMessages(snapshot.docs.map((doc) => doc.data()))
+                );
         }
-    },  [channelId]);
+    }, [channelId]);
 
     const sendMessage = e => {
         e.preventDefault();
 
         db.collection("channels")
-        .doc(channelId)
-        .collection("messages")
-        .add({
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            message: input,
-            user: user,
-        });
+            .doc(channelId)
+            .collection("messages")
+            .add({
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                message: input,
+                user: user,
+            });
 
         setInput("");
     };
@@ -50,12 +50,12 @@ function Chat() {
     return (
         <div className='chat'>
             <ChatHeader
-                channelName={ channelName }
+                channelName={channelName}
             />
 
             <div className="chat__messages">
-                { messages.map((message) => (
-                    <Message 
+                {messages.map((message) => (
+                    <Message
                         timestamp={message.timestamp}
                         message={message.message}
                         user={message.user}
@@ -67,19 +67,19 @@ function Chat() {
                 <AddCircleIcon fontSize='large' />
 
                 <form action="#">
-                    <input 
+                    <input
                         disabled={!channelId}
-                        value={input} 
-                        onChange={(e) => setInput(e.target.value)} 
-                        placeholder={`Message #${channelName}`} 
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        placeholder={`Message #${channelName}`}
                     />
-                    <button 
+                    <button
                         disabled={!channelId}
                         className='chat__inputButton'
                         type='submit'
-                        onClick={ sendMessage }
+                        onClick={sendMessage}
                     >
-                    Send Message
+                        Send Message
                     </button>
                 </form>
 

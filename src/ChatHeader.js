@@ -13,7 +13,7 @@ function ChatHeader({ channelName }) {
         <div className='chatHeader'>
             <div className="chatHeader__left">
                 <h3><span className='chatHeader__hash'>#</span>
-                {channelName}</h3>
+                    {channelName}</h3>
             </div>
 
             <div className="chatHeader__right">
